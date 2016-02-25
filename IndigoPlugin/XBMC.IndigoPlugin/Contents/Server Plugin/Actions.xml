@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<Actions>	
+	<!--
+	<Action id="xbmcApplicationQuit" deviceFilter="self">
+		<Name>Quit</Name>
+		<CallbackMethod>xbmcApplicationQuit</CallbackMethod>
+	</Action>
+	
+	<Action id="xbmcApplicationStart" deviceFilter="self">
+		<Name>Start</Name>
+		<CallbackMethod>xbmcApplicationStart</CallbackMethod>
+	</Action>
+	-->
+	<Action id="xbmcApplicationVolMuteOn" deviceFilter="self">
+		<Name>Mute</Name>
+		<CallbackMethod>xbmcApplicationVolMuteOn</CallbackMethod>
+	</Action>
+	<Action id="xbmcApplicationVolMuteOff" deviceFilter="self">
+		<Name>Mute Off</Name>
+		<CallbackMethod>xbmcApplicationVolMuteOff</CallbackMethod>
+	</Action>
+	<Action id="xbmcPlayerPauseOn" deviceFilter="self">
+		<Name>Play pause</Name>
+		<CallbackMethod>xbmcPlayerPauseOn</CallbackMethod>
+	</Action>
+	<Action id="xbmcPlayerPauseOff" deviceFilter="self">
+		<Name>Play resume</Name>
+		<CallbackMethod>xbmcPlayerPauseOff</CallbackMethod>
+	</Action>
+	<Action id="xbmcPlayerStop" deviceFilter="self">
+		<Name>Play stop</Name>
+		<CallbackMethod>xbmcPlayerStop</CallbackMethod>
+	</Action>
+	<Action id="xbmcSetVolume" deviceFilter="self">
+		<Name>Set Volume</Name>
+		<CallbackMethod>xbmcSetVolume</CallbackMethod>
+		<ConfigUI>
+			<Field id="volume" type="textfield" defaultValue="50">
+				<Label>Enter New Volume:</Label>
+				<Description>Enter an integer from 0 to 100</Description>
+			</Field>			
+		</ConfigUI>
+	</Action>
+	<Action id="xbmcIncreaseVolume" deviceFilter="self">
+		<Name>Increase Volume</Name>
+		<CallbackMethod>xbmcIncreaseVolume</CallbackMethod>
+		<ConfigUI>
+			<Field id="increment" type="textfield" defaultValue="5">
+				<Label>Amount to Increase by:</Label>
+				<Description>Enter an integer from 0 to 100</Description>
+			</Field>			
+		</ConfigUI>
+	</Action>
+	<Action id="xbmcDecreaseVolume" deviceFilter="self">
+		<Name>Decrease Volume</Name>
+		<CallbackMethod>xbmcDecreaseVolume</CallbackMethod>
+		<ConfigUI>
+			<Field id="decrement" type="textfield" defaultValue="5">
+				<Label>Amount to Decrease by:</Label>
+				<Description>Enter an integer from 0 to 100</Description>
+			</Field>			
+		</ConfigUI>
+	</Action>
+	
+	<Action id="xbmcShowNotification" deviceFilter="self">
+		<Name>Send notification</Name>
+		<CallbackMethod>xbmcShowNotification</CallbackMethod>
+		<ConfigUI>
+			<Field id="title" type="textfield" defaultValue="">
+				<Label>Title:</Label>
+				<Description>Title</Description>
+			</Field>
+			<Field id="message" type="textfield" defaultValue="">
+				<Label>Text:</Label>
+				<Description>Text to notify</Description>
+			</Field>
+			<Field id="displaytime" type="textfield" defaultValue="5">
+				<Label>Display time (sec):</Label>
+				<Description>Enter an integer</Description>
+			</Field>			
+		</ConfigUI>
+	</Action>
+	
+</Actions>

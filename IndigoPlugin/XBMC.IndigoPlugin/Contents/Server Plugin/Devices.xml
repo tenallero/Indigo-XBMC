@@ -1,0 +1,157 @@
+<?xml version="1.0"?>
+<Devices>
+    <!-- XBMC Device -->
+    <Device type="relay" id="xbmctype">
+        <Name>XBMC Device</Name>
+        <ConfigUI>
+
+            <Field id="label2" type="label">
+                <Label>Connection from Indigo to XBMC</Label>
+            </Field>
+            <Field id="simpleSeparator1" type="separator"/>
+            <Field id="portintro1" type="label" fontSize="small" fontColor="darkgray">
+                <Label>You can send commands to a XBMC device in your LAN.</Label>
+            </Field>
+            <Field id="portintro2" type="label" fontSize="small" fontColor="darkgray">
+                <Label>Every XBMC has an IP address and TCP port where they are listening for these commands.</Label>
+            </Field>
+            <Field id="portintro3" type="label" fontSize="small" fontColor="darkgray">
+                <Label>To enable this "dialog", you must configure XBMC.</Label>
+            </Field>
+            <Field id="portintro4" type="label" fontSize="small" fontColor="darkgray">
+                <Label>You will find this configuration at "Webserver" and "Remote control" options at Settings/Services menu in your XBMC device.</Label>
+            </Field>
+            <Field id="portintro5" type="label" fontSize="small" fontColor="darkgray">
+                <Label></Label>
+            </Field>
+            <Field id="address" type="textfield">
+                <Label>XBMC IP Address:</Label>
+                <Description>Enter the IP address of your XBMC</Description>
+            </Field>
+            <Field id="port" type="textfield" defaultValue="8085" >
+                <Label>TCP Port:</Label>
+                <Description>Enter the TCP port where this XBMC is listening</Description>
+            </Field>
+            <Field id="useAuthentication" type="checkbox" defaultValue="true">
+                <Label>Use authentication:</Label>
+            </Field>
+            <Field id="username" type="textfield" defaultValue="xbmc" visibleBindingId="useAuthentication" visibleBindingValue="true">
+                <Label>Username:</Label>
+            </Field>
+            <Field id="password" type="textfield" defaultValue="xbmc" visibleBindingId="useAuthentication" visibleBindingValue="true">
+                <Label>Password:</Label>
+            </Field>
+            <Field id="actionwhenoff" type="menu" defaultValue="nothing">
+              <Label>Action when off:</Label>
+              <List>
+                <Option value="nothing">Do nothing</Option>
+                <Option value="app.quit">Quit XBMC</Option>
+                <Option value="sys.shutdown">System Shutdown</Option>
+                <!--
+                <Option value="relay.switchoff">Switch off relay</Option>
+                -->
+              </List>
+            </Field>
+            <!--
+            <Field id="relaytoswitchoff" type="menu" enabledBindingId="actionwhenoff" enableBindingValue="relay.switchoff">
+              <Label>Relay to switch off:</Label>
+              <List class="self" method="menuGetDevsRelay" dynamicReload="yes" />
+              <CallbackMethod>menuClearSelDev</CallbackMethod>
+            </Field>
+
+            <Field id="shutdownwhenoff" type="checkbox" defaultValue="false" hidden="true">
+                <Label>System shutdown when off:</Label>
+            </Field>
+            -->
+        </ConfigUI>
+        <UiDisplayStateId>state</UiDisplayStateId>
+        <States>
+            <!--
+            <State id="state" defaultValue="Off">
+                <ValueType>
+                    <List>
+                        <Option value="On">On</Option>
+                        <Option value="Off">Off</Option>
+                    </List>
+                </ValueType>
+                <TriggerLabel>XBMC State Changed</TriggerLabel>
+                <TriggerLabelPrefix>XBMC is</TriggerLabelPrefix>
+                <ControlPageLabel>XBMC is</ControlPageLabel>
+                <ControlPageLabelPrefix>XBMC is</ControlPageLabelPrefix>
+            </State>
+            -->
+            <State id="media" defaultValue="none">
+                <ValueType>
+                    <List>
+                        <Option value="none">Nothing</Option>
+                        <Option value="video">Video</Option>
+                        <Option value="livetv">Live TV</Option>
+                        <Option value="audio">Audio</Option>
+                        <Option value="picture">Pictures</Option>
+                        <Option value="tvshow">TV show</Option>
+                        <Option value="radio">Radio</Option>
+                    </List>
+                </ValueType>
+                <TriggerLabel>XBMC media played changed</TriggerLabel>
+                <TriggerLabelPrefix>XBMC is playing</TriggerLabelPrefix>
+                <ControlPageLabel>XBMC is playing</ControlPageLabel>
+                <ControlPageLabelPrefix>XBMC is playing</ControlPageLabelPrefix>
+            </State>
+
+            <State id="menu" defaultValue="none">
+                <ValueType>
+                    <List>
+                        <Option value="none">Nothing</Option>
+                        <Option value="home">Home</Option>
+                        <Option value="video">Videos</Option>
+                        <Option value="livetv">Live TV</Option>
+                        <Option value="radio">Radio</Option>
+                        <Option value="settings">Settings</Option>
+                        <Option value="music">Music</Option>
+                        <Option value="picture">Pictures</Option>
+                        <Option value="weather">Weather</Option>
+                    </List>
+                </ValueType>
+                <TriggerLabel>XBMC navigationchanged</TriggerLabel>
+                <TriggerLabelPrefix>XBMC is navigationg</TriggerLabelPrefix>
+                <ControlPageLabel>XBMC is navigating</ControlPageLabel>
+                <ControlPageLabelPrefix>XBMC is navigating</ControlPageLabelPrefix>
+            </State>
+
+
+            <State id="title">
+                <ValueType>String</ValueType>
+                <TriggerLabel>XBMC is now playing</TriggerLabel>
+                <TriggerLabelPrefix>XBMC is now playing</TriggerLabelPrefix>
+				<ControlPageLabel>XBMC is now playing</ControlPageLabel>
+	            <ControlPageLabelPrefix>XBMC is now playing</ControlPageLabelPrefix>
+            </State>
+
+            <State id="player" defaultValue="stopped">
+                <ValueType>
+                    <List>
+                        <Option value="stopped">Stopped</Option>
+                        <Option value="playing">Playing</Option>
+                        <Option value="paused">Paused</Option>
+                    </List>
+                </ValueType>
+                <TriggerLabel>XBMC player changed</TriggerLabel>
+                <TriggerLabelPrefix>XBMC player is</TriggerLabelPrefix>
+                <ControlPageLabel>XBMC player is</ControlPageLabel>
+                <ControlPageLabelPrefix>XBMC player is</ControlPageLabelPrefix>
+            </State>
+            <State id="muted" defaultValue="false">
+                <ValueType boolType="YesNo">Boolean</ValueType>
+                <TriggerLabel>Muted</TriggerLabel>
+                <ControlPageLabel>Muted</ControlPageLabel>
+            </State>
+            <State id="volume" defaultValue="0.0">
+                <ValueType>Number</ValueType>
+                <TriggerLabel>Volume (%)</TriggerLabel>
+                <TriggerLabelPrefix>Volume (%)</TriggerLabelPrefix>
+                <ControlPageLabel>Volume (%)</ControlPageLabel>
+                <ControlPageLabelPrefix>Volume (%)</ControlPageLabelPrefix>
+            </State>
+        </States>
+    </Device>
+</Devices>

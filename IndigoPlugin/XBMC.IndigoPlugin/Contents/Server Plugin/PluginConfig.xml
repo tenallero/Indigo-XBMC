@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<PluginConfig>
+
+    <Field id="label2" type="label">
+        <Label>Connecting XBMC to Indigo</Label>
+    </Field>
+    <Field id="simpleSeparator2" type="separator"/>
+    <Field id="portintro1" type="label" fontSize="small" fontColor="darkgray">
+		<Label>Every XBMC will send to Indigo what is happening (playing, pausing, stopping, navigating, etc).</Label>
+	</Field>
+	<Field id="portintro2" type="label" fontSize="small" fontColor="darkgray">
+		<Label>So, Indigo must listen to the messages that come from the XBMCs in your LAN.</Label>
+	</Field>
+	<Field id="portintro3" type="label" fontSize="small" fontColor="darkgray">
+		<Label>To enable this "dialog", you must also install "Indigo Addon" in every XBMC. </Label>
+	</Field>
+	<Field id="portintro4" type="label" fontSize="small" fontColor="darkgray">
+		<Label>When configuring the addon, you must indicate Indigo machine's IP address and this UDP port.</Label>
+	</Field>
+
+	<Field id="listenPort" type="textfield" defaultValue="8189">
+		<Label>UDP port to listen:</Label>
+	</Field>
+	<Field id="portinfo1" type="label">
+		<Label>You must indicate a valid UDP port. This port must be free (not used by other process).</Label>
+	</Field>
+	<Field id="portinfo2" type="label">
+		<Label>Indigo will use this port to receive the messages from your XBMCs.</Label>
+	</Field>
+    <Field id="space1" type="label">
+    	<Label/>
+    </Field>
+	<Field type="checkbox" id="debugEnabled" defaultValue="false">
+		<Label>Enable debugging:</Label>
+		<Description>(not recommended)</Description>
+	</Field>
+</PluginConfig>
