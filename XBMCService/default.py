@@ -30,8 +30,8 @@ settings          = xbmcaddon.Addon(id='service.indigo')
 indigo_ip         = settings.getSetting( "indigo_ip" )
 indigo_port       = settings.getSetting( "indigo_port" )
 
-debouncing_video  = float(settings.getSetting( "debounce_video"))
-debouncing_audio  = float(settings.getSetting( "debounce_audio"))
+debouncing_video  = 0 #float(settings.getSetting( "debounce_video"))
+debouncing_audio  = 0 #float(settings.getSetting( "debounce_audio"))
 
 __addonname__     = settings.getAddonInfo('name')
 __icon__          = settings.getAddonInfo('icon')
