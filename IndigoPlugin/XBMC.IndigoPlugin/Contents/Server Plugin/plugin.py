@@ -295,6 +295,7 @@ class Plugin(indigo.PluginBase):
                     if xState == 'on':
                         if indigoDevice.states["onOffState"] != True:
                             indigoDevice.updateStateOnServer("onOffState", True)
+                            self.xbmcApplicationVersion(indigoDevice)
                     else:
                         indigo.server.log(u"\"%s\" %s" % (indigoDevice.name, " is off"))
                         indigoDevice.updateStateOnServer("onOffState", False)
@@ -429,7 +430,7 @@ class Plugin(indigo.PluginBase):
             self.errorLog(device.name + ": Is Kodi/XBMC installed?")
 
         else:
-            self.errorLog(device.name + ": Only for XBMC in same machine than Indigo. XBMC address is: " + device.pluginProps["address"] + ". Indigo address is: " + self.localAddress)
+            self.errorLog(device.name + ": This action only works if Kodi is running in the same machine than Indigo. Kodi address is: " + device.pluginProps["address"] + ". Indigo address is: " + self.localAddress)
 
     def xbmcApplicationQuit(self, pluginAction, device):
         playerState = device.states['player']
@@ -460,6 +461,12 @@ class Plugin(indigo.PluginBase):
             indigo.server.log(u"sent \"%s\" %s" % (device.name, "off by default"))
             self.sendRpcRequest  (device, "Application.Quit", {} )
         device.updateStateOnServer("onOffState", False)
+
+    def xbmcApplicationVersion(self, device):
+        indigo.server.log(u"query  \"%s\" %s" % (device.name, "version"))
+        xbmcVersion = self.sendRpcRequest  (device, "Application.GetProperties", {"properties": "version"} )
+        indigo.server.log(u"\"%s\" version is %s" % (device.name, xbmcVersion))
+        #device.updateStateOnServer("xbmcVersion", xbmcVersion)
 
     def xbmcSystemShutdown(self, pluginAction, device):
         indigo.server.log(u"sent \"%s\" %s" % (device.name, "shutdown"))

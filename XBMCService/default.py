@@ -23,9 +23,8 @@ import xbmcgui
 import xbmcaddon
 import time
 import socket
-import simplejson
+import json #simplejson
 import re
-
 
 settings          = xbmcaddon.Addon(id='service.indigo')
 indigo_ip         = settings.getSetting( "indigo_ip" )
@@ -55,6 +54,18 @@ currTitle   = ""
 currVolume  = 0
 currMuted   = False
 lastWindow  = 0
+
+def get_installedversion():
+    # retrieve current installed version
+    #version=xbmc.Application.GetProperties(properties=['version'])['version']['major']
+    #http://www.tayunsmart.com/otaupdate/xbmc/s9/addons/plugin.program.super.favourites/utils.py
+    xQuery = xbmc.executeJSONRPC('{ "jsonrpc": "2.0", "method": "Application.GetProperties", "params": {"properties": ["version", "name"]}, "id": 1 }')
+    xQuery = unicode(xQuery, 'utf-8', errors='ignore')
+    xQuery = jsoninterface.loads(xQuery)
+    version_installed = []
+    if xQuery.has_key('result') and xQuery['result'].has_key('version'):
+        version_installed  = xQuery['result']['version']
+    return version_installed
 
 def debugLog (message):
     global debugMode
@@ -179,7 +190,6 @@ def getCurrentMediaType():
     return lMedia
 
 def getCurrentVolume():
-
     xQuery  = ''
     xResult = ''
     xVolume = 0
@@ -201,9 +211,7 @@ def getCurrentVolume():
 
 
 def getCurrentMediaTitle():
-
-    lTitle = ''
-    
+    lTitle = '' 
     try:
         lMedia = getCurrentMediaType()
         if lMedia == 'tvshow':
@@ -296,8 +304,7 @@ def watchNavigation():
 
 #        def OnVolumeChanged 
 
-class MyPlayer(xbmc.Player):                                                                                                                                                             
-                                                                                                                                                                                     
+class MyPlayer(xbmc.Player):                                                                                                                                     
         def __init__ (self):                                                                                                                                                             
             xbmc.Player.__init__(self)              
             debugLog ('Player init')    
@@ -415,7 +422,6 @@ except socket.error:
 #########################################################
 
 if sock != None:
-
     lastVolume, lastMuted = getCurrentVolume()
     notifyEventApp('start')
     notifyEventVolume(lastVolume,lastMuted)

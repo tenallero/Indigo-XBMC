@@ -2,10 +2,8 @@
 <addon id="service.indigo" name="Indigo XBMC integration" version="Beta" provider-name="tenallero">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
-    </requires>
-  
-    <extension point="xbmc.service" library="default.py" start="startup" />
-  
+    </requires>  
+    <extension point="xbmc.service" library="default.py" start="startup" />  
     <extension point="xbmc.addon.metadata">
         <platform>all</platform>
         <language>Eng</language>
