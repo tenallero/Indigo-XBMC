@@ -55,13 +55,22 @@ currVolume  = 0
 currMuted   = False
 lastWindow  = 0
 
-def get_installedversion():
-    # retrieve current installed version
-    #version=xbmc.Application.GetProperties(properties=['version'])['version']['major']
+MAJOR    = 0
+MINOR    = 0
+DHARMA   = False 
+EDEN     = False
+FRODO    = False
+GOTHAM   = False
+HELIX    = False
+ISENGARD = False
+JARVIS   = False
+                              
+
+def get_installedversion():    
     #http://www.tayunsmart.com/otaupdate/xbmc/s9/addons/plugin.program.super.favourites/utils.py
     xQuery = xbmc.executeJSONRPC('{ "jsonrpc": "2.0", "method": "Application.GetProperties", "params": {"properties": ["version", "name"]}, "id": 1 }')
     xQuery = unicode(xQuery, 'utf-8', errors='ignore')
-    xQuery = jsoninterface.loads(xQuery)
+    xQuery = json.loads(xQuery)
     version_installed = []
     if xQuery.has_key('result') and xQuery['result'].has_key('version'):
         version_installed  = xQuery['result']['version']
@@ -305,67 +314,79 @@ def watchNavigation():
 #        def OnVolumeChanged 
 
 class MyPlayer(xbmc.Player):                                                                                                                                     
-        def __init__ (self):                                                                                                                                                             
-            xbmc.Player.__init__(self)              
-            debugLog ('Player init')    
-                     
-        def onPlayBackStarted(self):
-            global currMedia
-            global currTitle
+    def __init__ (self):                                                                                                                                                             
+        xbmc.Player.__init__(self)              
+        debugLog ('Player init')    
+                    
+    def onPlayBackStarted(self):
+        global currMedia
+        global currTitle
 
-            xbmc.sleep (250)
-            media     = getCurrentMediaType()
-            currTitle = getCurrentMediaTitle()            
-            notifyEventPlayer ('onPlayBackStarted',media)
-            currMedia = media
+        xbmc.sleep (250)
+        media     = getCurrentMediaType()
+        currTitle = getCurrentMediaTitle()            
+        notifyEventPlayer ('onPlayBackStarted',media)
+        currMedia = media
 
-        def onPlayBackEnded(self): 
-            global currMedia
-            if (currMedia == "video") or (currMedia == 'tvshow'):
-                time.sleep(debouncing_video)
-                if not xbmc.Player().isPlaying():                                                                                                                                                                                       
-                    notifyEventPlayer ('onPlayBackEnded',currMedia)
+    def onPlayBackEnded(self): 
+        global currMedia
+        if (currMedia == "video") or (currMedia == 'tvshow'):
+            time.sleep(debouncing_video)
+            if not xbmc.Player().isPlaying():                                                                                                                                                                                       
+                notifyEventPlayer ('onPlayBackEnded',currMedia)
 
-            if (currMedia == "audio"):
-                time.sleep(debouncing_audio)
-                if not xbmc.Player().isPlaying():
-                    notifyEventPlayer ('onPlayBackEnded',currMedia)
-            currMedia = 'none'                                                                                                                                                                                             
-            currTitle = ""
-            
-        def onPlayBackStopped(self):
-            global currMedia
-            global currTitle
-            notifyEventPlayer ('onPlayBackStopped',currMedia)     
-            currTitle = ""  
-            currMedia = "none"                                                                                                                                           
-                                                                                                                                                                   
-        def onPlayBackPaused(self): 
-            global currMedia 
-            notifyEventPlayer ('onPlayBackPaused',currMedia)                                                                                                                                                       
-                      
-        def onPlayBackResumed(self):
-            global currMedia
-            notifyEventPlayer ('onPlayBackResumed',currMedia)                                                                                                                                                      
+        if (currMedia == "audio"):
+            time.sleep(debouncing_audio)
+            if not xbmc.Player().isPlaying():
+                notifyEventPlayer ('onPlayBackEnded',currMedia)
+        currMedia = 'none'                                                                                                                                                                                             
+        currTitle = ""
+        
+    def onPlayBackStopped(self):
+        global currMedia
+        global currTitle
+        notifyEventPlayer ('onPlayBackStopped',currMedia)     
+        currTitle = ""  
+        currMedia = "none"                                                                                                                                           
+                                                                                                                                                                
+    def onPlayBackPaused(self): 
+        global currMedia 
+        notifyEventPlayer ('onPlayBackPaused',currMedia)                                                                                                                                                       
+                    
+    def onPlayBackResumed(self):
+        global currMedia
+        notifyEventPlayer ('onPlayBackResumed',currMedia)
+        
+    def OnQueueNextItem(self):
+       debugLog ('Player OnQueueNextItem') 
+                 
+    def onPlayBackEnded(self, time):
+       debugLog ('Player onPlayBackEnded') 
+       
+    def onPlayBackSeek(self, time, seekOffset):
+       debugLog ('Player onPlayBackSeek')
+          
+    def onPlayBackSeekChapter(self, chapter):
+        debugLog ('Player onPlayBackSeekChapter')    
 
 class MyMonitor( xbmc.Monitor ):
-        def __init__( self, *args, **kwargs ):
-            xbmc.Monitor.__init__( self )
-            debugLog ('Monitor init') 
-            
-        def onSettingsChanged( self ):
-            #settings.start()
-            #if not settings.reconnect:
-            #  check_state()
-            debugLog ('Monitor onSettingsChanged') 
+    def __init__( self, *args, **kwargs ):
+        xbmc.Monitor.__init__( self )
+        debugLog ('Monitor init') 
+        
+    def onSettingsChanged( self ):
+        #settings.start()
+        #if not settings.reconnect:
+        #  check_state()
+        debugLog ('Monitor onSettingsChanged') 
 
-        def onScreensaverDeactivated( self ):
-            
-            debugLog ('Monitor onScreensaverDeactivated') 
-          
-        def onScreensaverActivated( self ):    
-            
-            debugLog ('Monitor onScreensaverActivated') 
+    def onScreensaverDeactivated( self ):           
+        debugLog ('Monitor onScreensaverDeactivated') 
+        
+    def onScreensaverActivated( self ): 
+        debugLog ('Monitor onScreensaverActivated') 
+        
+        
 
 ######################################################              
 # Inicio del Addon
@@ -376,8 +397,27 @@ if (str(settings.getSetting("debug_mod")) == "Yes"):
 else:
     debugMode = False
 
-debugLog ('Service start')
-                                                                                                                                                                                                                                                                                                                                         
+debugLog ('Service starts')
+
+try:   
+    version_installed = get_installedversion() 
+    if version_installed.has_key('major'):
+        MAJOR  = int(version_installed['major'])
+        MINOR  = int(version_installed['minor'])
+except:
+    MAJOR  = 0                                                                                                                                                                                                                                                       
+    MINOR  = 0
+
+debugLog ('Kodi release = ' + str(MAJOR) + '.' + str(MINOR)) 
+
+DHARMA      = (MAJOR < 11)    
+EDEN        = (MAJOR == 11)
+FRODO       = (MAJOR == 12) and (MINOR < 9)
+GOTHAM      = (MAJOR == 13) or (MAJOR == 12 and MINOR == 9)
+HELIX       = (MAJOR == 14)
+ISENGARD    = (MAJOR == 15)
+JARVIS      = (MAJOR > 15)
+                                              
 lastMedia   = "none"
 lastMenu    = "none"
 lastTitle   = ""
@@ -425,8 +465,16 @@ if sock != None:
     lastVolume, lastMuted = getCurrentVolume()
     notifyEventApp('start')
     notifyEventVolume(lastVolume,lastMuted)
-    while(not xbmc.abortRequested):
-        watchNavigation()
-        xbmc.sleep(500)
+    if DHARMA or EDEN or FRODO or GOTHAM:
+        while (not xbmc.abortRequested):
+            watchNavigation()
+            xbmc.sleep(500)
+    if HELIX or ISENGARD or JARVIS:
+        while (not monitor.abortRequested()):
+            if monitor.waitForAbort(0.5):
+                break
+            watchNavigation()           
+                
     notifyEventApp('quit')
-debugLog ('Addon quit')
+debugLog ('Service quits')
+

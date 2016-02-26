@@ -153,7 +153,9 @@
                 <ControlPageLabelPrefix>Volume (%)</ControlPageLabelPrefix>
             </State>
             <State id="xbmcVersion" defaultValue="">
-                <ValueType>String</ValueType>                
+                <ValueType>String</ValueType>  
+                <TriggerLabel>Version</TriggerLabel>
+                <ControlPageLabel>Version</ControlPageLabel>            
             </State>
         </States>
     </Device>

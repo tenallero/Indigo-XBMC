@@ -338,6 +338,7 @@ class Plugin(indigo.PluginBase):
 
     def sendRpcRequest(self, device, method, params):
         # http://www.python-requests.org/en/latest/user/quickstart/
+        r = None
         self.debugLog(device.name + ": sendRpcRequest")
         requestOK = False
         if device.pluginProps.has_key("useAuthentication") and device.pluginProps["useAuthentication"]:
@@ -372,7 +373,7 @@ class Plugin(indigo.PluginBase):
         except Exception, e:
             lastError = str(e)
             self.errorLog(device.name + ": Request error : %s" % lastError)
-            return False
+            return False, r
 
         if rStatusCode == 200:
             if "error" in json.loads(r.content):
@@ -382,7 +383,7 @@ class Plugin(indigo.PluginBase):
                 self.debugLog(device.name + ": Response content: %s" % r.content)
         else:
             if rStatusCode == 401:
-                self.errorLog(device.name + ": XBMC does not accept this. Please, check authorization settings for this Indigo device.")
+                self.errorLog(device.name + ": Kodi does not accept this. Please, check authorization settings for this Indigo device.")
             else:
                 self.errorLog(device.name + ": Response status : %s" % rStatusCode)
         if requestOK == True:
@@ -390,7 +391,7 @@ class Plugin(indigo.PluginBase):
 
         else:
             device.updateStateOnServer("onOffState", False)
-        return requestOK
+        return requestOK, r
 
     def updateDeviceState(self,device,state,newValue):
         if (newValue != device.states[state]):
@@ -413,7 +414,6 @@ class Plugin(indigo.PluginBase):
 
 
     def xbmcApplicationStart(self, pluginAction, device):
-
         if (device.pluginProps["address"] == self.localAddress) or (device.pluginProps["address"] == "127.0.0.1"):
             indigo.server.log(u"sent \"%s\" %s" % (device.name, "on"))
             self.debugLog(device.name + ": starting local.")
@@ -463,11 +463,24 @@ class Plugin(indigo.PluginBase):
         device.updateStateOnServer("onOffState", False)
 
     def xbmcApplicationVersion(self, device):
-        indigo.server.log(u"query  \"%s\" %s" % (device.name, "version"))
-        xbmcVersion = self.sendRpcRequest  (device, "Application.GetProperties", {"properties": "version"} )
-        indigo.server.log(u"\"%s\" version is %s" % (device.name, xbmcVersion))
-        #device.updateStateOnServer("xbmcVersion", xbmcVersion)
-
+        version_installed = []
+        self.debugLog (u"query  \"%s\" %s" % (device.name, "version"))        
+        status, r = self.sendRpcRequest  (device, "Application.GetProperties", {"properties": ["version"]} )
+  
+        if status:
+            json_query = unicode(r.content, 'utf-8', errors='ignore')
+            json_query = json.loads(json_query)
+            version_installed = []
+            if json_query.has_key('result') and json_query['result'].has_key('version'):
+                version_installed  = json_query['result']['version']
+                version_major  = version_installed['major']
+                version_minor  = version_installed['minor']
+                xbmcVersion = str(version_major) + '.' + str(version_minor)
+                self.debugLog (u"\"%s\" version is %s" % (device.name, xbmcVersion))
+                device.updateStateOnServer("xbmcVersion", xbmcVersion)
+        return version_installed
+        
+        
     def xbmcSystemShutdown(self, pluginAction, device):
         indigo.server.log(u"sent \"%s\" %s" % (device.name, "shutdown"))
         self.sendRpcRequest  (device, "System.Shutdown", {} )
