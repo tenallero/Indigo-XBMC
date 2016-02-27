@@ -1,16 +1,5 @@
 <?xml version="1.0"?>
 <Actions>	
-	<!--
-	<Action id="xbmcApplicationQuit" deviceFilter="self">
-		<Name>Quit</Name>
-		<CallbackMethod>xbmcApplicationQuit</CallbackMethod>
-	</Action>
-	
-	<Action id="xbmcApplicationStart" deviceFilter="self">
-		<Name>Start</Name>
-		<CallbackMethod>xbmcApplicationStart</CallbackMethod>
-	</Action>
-	-->
 	<Action id="xbmcApplicationVolMuteOn" deviceFilter="self">
 		<Name>Mute</Name>
 		<CallbackMethod>xbmcApplicationVolMuteOn</CallbackMethod>

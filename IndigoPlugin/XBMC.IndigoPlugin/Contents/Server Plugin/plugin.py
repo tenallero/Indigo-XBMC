@@ -2,10 +2,6 @@
 # -*- coding: utf-8 -*-
 ######################################################################################
 
-# http://wiki.xbmc.org/index.php?title=JSON-RPC_API/v6
-# http://pastebin.com/9r1AMQ0H
-# http://wiki.xbmc.org/?title=Add-ons
-
 import os
 import sys
 import socket
@@ -294,6 +290,7 @@ class Plugin(indigo.PluginBase):
                     self.deviceList[choosen]['lastTimeAlive'] = datetime.datetime.now()
                     if xState == 'on':
                         if indigoDevice.states["onOffState"] != True:
+                            indigo.server.log(u"\"%s\" %s" % (indigoDevice.name, " is on"))
                             indigoDevice.updateStateOnServer("onOffState", True)
                             self.xbmcApplicationVersion(indigoDevice)
                     else:
@@ -477,7 +474,6 @@ class Plugin(indigo.PluginBase):
                 version_minor  = version_installed['minor']
                 xbmcVersion = str(version_major) + '.' + str(version_minor)
                 self.debugLog (u"\"%s\" version is %s" % (device.name, xbmcVersion))
-                device.updateStateOnServer("xbmcVersion", xbmcVersion)
         return version_installed
         
         

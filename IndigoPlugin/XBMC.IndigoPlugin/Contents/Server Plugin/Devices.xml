@@ -1,36 +1,35 @@
 <?xml version="1.0"?>
 <Devices>
-    <!-- XBMC Device -->
     <Device type="relay" id="xbmctype">
-        <Name>XBMC Device</Name>
+        <Name>Kodi Device</Name>
         <ConfigUI>
 
             <Field id="label2" type="label">
-                <Label>Connection from Indigo to XBMC</Label>
+                <Label>Connection from Indigo to Kodi</Label>
             </Field>
             <Field id="simpleSeparator1" type="separator"/>
             <Field id="portintro1" type="label" fontSize="small" fontColor="darkgray">
-                <Label>You can send commands to a XBMC device in your LAN.</Label>
+                <Label>You can send commands to a Kodi device in your LAN.</Label>
             </Field>
             <Field id="portintro2" type="label" fontSize="small" fontColor="darkgray">
-                <Label>Every XBMC has an IP address and TCP port where they are listening for these commands.</Label>
+                <Label>Every Kodi has an IP address and TCP port where they are listening for these commands.</Label>
             </Field>
             <Field id="portintro3" type="label" fontSize="small" fontColor="darkgray">
-                <Label>To enable this "dialog", you must configure XBMC.</Label>
+                <Label>To enable this "dialog", you must configure Kodi.</Label>
             </Field>
             <Field id="portintro4" type="label" fontSize="small" fontColor="darkgray">
-                <Label>You will find this configuration at "Webserver" and "Remote control" options at Settings/Services menu in your XBMC device.</Label>
+                <Label>You will find this configuration at "Webserver" and "Remote control" options at Settings/Services menu in your Kodi device.</Label>
             </Field>
             <Field id="portintro5" type="label" fontSize="small" fontColor="darkgray">
                 <Label></Label>
             </Field>
             <Field id="address" type="textfield">
-                <Label>XBMC IP Address:</Label>
-                <Description>Enter the IP address of your XBMC</Description>
+                <Label>Kodi IP Address:</Label>
+                <Description>Enter the IP address of your Kodi</Description>
             </Field>
             <Field id="port" type="textfield" defaultValue="8085" >
                 <Label>TCP Port:</Label>
-                <Description>Enter the TCP port where this XBMC is listening</Description>
+                <Description>Enter the TCP port where this Kodi is listening</Description>
             </Field>
             <Field id="useAuthentication" type="checkbox" defaultValue="true">
                 <Label>Use authentication:</Label>
@@ -42,14 +41,11 @@
                 <Label>Password:</Label>
             </Field>
             <Field id="actionwhenoff" type="menu" defaultValue="nothing">
-              <Label>Action when off:</Label>
+              <Label>Action when switch off:</Label>
               <List>
                 <Option value="nothing">Do nothing</Option>
-                <Option value="app.quit">Quit XBMC</Option>
+                <Option value="app.quit">Quit Kodi</Option>
                 <Option value="sys.shutdown">System Shutdown</Option>
-                <!--
-                <Option value="relay.switchoff">Switch off relay</Option>
-                -->
               </List>
             </Field>
             <!--
@@ -66,20 +62,6 @@
         </ConfigUI>
         <UiDisplayStateId>state</UiDisplayStateId>
         <States>
-            <!--
-            <State id="state" defaultValue="Off">
-                <ValueType>
-                    <List>
-                        <Option value="On">On</Option>
-                        <Option value="Off">Off</Option>
-                    </List>
-                </ValueType>
-                <TriggerLabel>XBMC State Changed</TriggerLabel>
-                <TriggerLabelPrefix>XBMC is</TriggerLabelPrefix>
-                <ControlPageLabel>XBMC is</ControlPageLabel>
-                <ControlPageLabelPrefix>XBMC is</ControlPageLabelPrefix>
-            </State>
-            -->
             <State id="media" defaultValue="none">
                 <ValueType>
                     <List>
@@ -92,10 +74,10 @@
                         <Option value="radio">Radio</Option>
                     </List>
                 </ValueType>
-                <TriggerLabel>XBMC media played changed</TriggerLabel>
-                <TriggerLabelPrefix>XBMC is playing</TriggerLabelPrefix>
-                <ControlPageLabel>XBMC is playing</ControlPageLabel>
-                <ControlPageLabelPrefix>XBMC is playing</ControlPageLabelPrefix>
+                <TriggerLabel>Kodi media played changed</TriggerLabel>
+                <TriggerLabelPrefix>Kodi is playing</TriggerLabelPrefix>
+                <ControlPageLabel>Kodi is playing</ControlPageLabel>
+                <ControlPageLabelPrefix>Kodi is playing</ControlPageLabelPrefix>
             </State>
 
             <State id="menu" defaultValue="none">
@@ -112,19 +94,19 @@
                         <Option value="weather">Weather</Option>
                     </List>
                 </ValueType>
-                <TriggerLabel>XBMC navigationchanged</TriggerLabel>
-                <TriggerLabelPrefix>XBMC is navigationg</TriggerLabelPrefix>
-                <ControlPageLabel>XBMC is navigating</ControlPageLabel>
-                <ControlPageLabelPrefix>XBMC is navigating</ControlPageLabelPrefix>
+                <TriggerLabel>Kodi navigationchanged</TriggerLabel>
+                <TriggerLabelPrefix>Kodi is navigationg</TriggerLabelPrefix>
+                <ControlPageLabel>Kodi is navigating</ControlPageLabel>
+                <ControlPageLabelPrefix>Kodi is navigating</ControlPageLabelPrefix>
             </State>
 
 
             <State id="title">
                 <ValueType>String</ValueType>
-                <TriggerLabel>XBMC is now playing</TriggerLabel>
-                <TriggerLabelPrefix>XBMC is now playing</TriggerLabelPrefix>
-				<ControlPageLabel>XBMC is now playing</ControlPageLabel>
-	            <ControlPageLabelPrefix>XBMC is now playing</ControlPageLabelPrefix>
+                <TriggerLabel>Kodi is now playing</TriggerLabel>
+                <TriggerLabelPrefix>Kodi is now playing</TriggerLabelPrefix>
+				<ControlPageLabel>Kodi is now playing</ControlPageLabel>
+	            <ControlPageLabelPrefix>Kodi is now playing</ControlPageLabelPrefix>
             </State>
 
             <State id="player" defaultValue="stopped">
@@ -135,10 +117,10 @@
                         <Option value="paused">Paused</Option>
                     </List>
                 </ValueType>
-                <TriggerLabel>XBMC player changed</TriggerLabel>
-                <TriggerLabelPrefix>XBMC player is</TriggerLabelPrefix>
-                <ControlPageLabel>XBMC player is</ControlPageLabel>
-                <ControlPageLabelPrefix>XBMC player is</ControlPageLabelPrefix>
+                <TriggerLabel>Kodi player changed</TriggerLabel>
+                <TriggerLabelPrefix>Kodi player is</TriggerLabelPrefix>
+                <ControlPageLabel>Kodi player is</ControlPageLabel>
+                <ControlPageLabelPrefix>Kodi player is</ControlPageLabelPrefix>
             </State>
             <State id="muted" defaultValue="false">
                 <ValueType boolType="YesNo">Boolean</ValueType>
@@ -151,11 +133,6 @@
                 <TriggerLabelPrefix>Volume (%)</TriggerLabelPrefix>
                 <ControlPageLabel>Volume (%)</ControlPageLabel>
                 <ControlPageLabelPrefix>Volume (%)</ControlPageLabelPrefix>
-            </State>
-            <State id="xbmcVersion" defaultValue="">
-                <ValueType>String</ValueType>  
-                <TriggerLabel>Version</TriggerLabel>
-                <ControlPageLabel>Version</ControlPageLabel>            
             </State>
         </States>
     </Device>

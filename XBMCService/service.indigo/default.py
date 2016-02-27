@@ -66,29 +66,32 @@ ISENGARD = False
 JARVIS   = False
                               
 
-def get_installedversion():    
+def get_installedversion():
     #http://www.tayunsmart.com/otaupdate/xbmc/s9/addons/plugin.program.super.favourites/utils.py
+    version_installed = []
+
     xQuery = xbmc.executeJSONRPC('{ "jsonrpc": "2.0", "method": "Application.GetProperties", "params": {"properties": ["version", "name"]}, "id": 1 }')
     xQuery = unicode(xQuery, 'utf-8', errors='ignore')
     xQuery = json.loads(xQuery)
-    version_installed = []
+    
     if xQuery.has_key('result') and xQuery['result'].has_key('version'):
         version_installed  = xQuery['result']['version']
+
     return version_installed
 
 def debugLog (message):
     global debugMode
     if debugMode == True:
-        print('Indigo.Addon: Debug: ' + message)   
+        print('Indigo.Service: ' + message)   
 
 def errorLog (message):
-    print('Indigo.Addon: ERROR: ' + message)   
+    print('Indigo.Service.ERROR: ' + message)   
 
 def indigoSendMsg(message):
     global sock
     try:
         sock.sendto (message, (indigo_ip , int(indigo_port)))
-        debugLog ('Sent message to Indigo plugin:' + message)   
+        debugLog ('Sent message to Indigo: ' + message)   
     except socket.error:
         errorLog ('indigoSendMsg. Socket error: ' + str(sys.exc_info()[1][0]) + ',' + str(sys.exc_info()[1][1] ))
 
@@ -136,7 +139,7 @@ def notifyEventTitle(title):
 def checkEventMenu(event):
     global lastMenu
     if event != lastMenu:
-        debugLog ('Old menu = ' + lastMenu + '. New menu = ' + event)   
+        debugLog ('Menu changed from ' + lastMenu + ' to ' + event)   
         notifyEventMenu (event)
         lastMenu = event
 
@@ -164,7 +167,6 @@ def checkEventTitle():
         currTitle = xTitle
 
 def getCurrentMediaType():
-    # none,video, audio, picture, livetv, tvshow, radio
     global lastMenu
     global lastWindow
 
@@ -358,33 +360,33 @@ class MyPlayer(xbmc.Player):
         notifyEventPlayer ('onPlayBackResumed',currMedia)
         
     def OnQueueNextItem(self):
-       debugLog ('Player OnQueueNextItem') 
+       debugLog ('Player.OnQueueNextItem') 
                  
     def onPlayBackEnded(self, time):
-       debugLog ('Player onPlayBackEnded') 
+       debugLog ('Player.onPlayBackEnded') 
        
     def onPlayBackSeek(self, time, seekOffset):
-       debugLog ('Player onPlayBackSeek')
+       debugLog ('Player.onPlayBackSeek')
           
     def onPlayBackSeekChapter(self, chapter):
-        debugLog ('Player onPlayBackSeekChapter')    
+        debugLog ('Player.onPlayBackSeekChapter')    
 
 class MyMonitor( xbmc.Monitor ):
     def __init__( self, *args, **kwargs ):
         xbmc.Monitor.__init__( self )
-        debugLog ('Monitor init') 
+        debugLog ('Monitor.init') 
         
     def onSettingsChanged( self ):
         #settings.start()
         #if not settings.reconnect:
         #  check_state()
-        debugLog ('Monitor onSettingsChanged') 
+        debugLog ('Monitor.onSettingsChanged') 
 
     def onScreensaverDeactivated( self ):           
-        debugLog ('Monitor onScreensaverDeactivated') 
+        debugLog ('Monitor.onScreensaverDeactivated') 
         
     def onScreensaverActivated( self ): 
-        debugLog ('Monitor onScreensaverActivated') 
+        debugLog ('Monitor.onScreensaverActivated') 
         
         
 
@@ -417,7 +419,21 @@ GOTHAM      = (MAJOR == 13) or (MAJOR == 12 and MINOR == 9)
 HELIX       = (MAJOR == 14)
 ISENGARD    = (MAJOR == 15)
 JARVIS      = (MAJOR > 15)
-                                              
+
+if DHARMA:
+    debugLog ('Kodi release = Dharma')
+if FRODO:
+    debugLog ('Kodi release = Frodo')
+if GOTHAM:
+    debugLog ('Kodi release = Gotham')
+if HELIX:
+    debugLog ('Kodi release = Helix')
+if ISENGARD:
+    debugLog ('Kodi release = Isengard')
+if JARVIS:
+    debugLog ('Kodi release = Jarvis')
+
+
 lastMedia   = "none"
 lastMenu    = "none"
 lastTitle   = ""
@@ -468,13 +484,14 @@ if sock != None:
     if DHARMA or EDEN or FRODO or GOTHAM:
         while (not xbmc.abortRequested):
             watchNavigation()
-            xbmc.sleep(500)
+            xbmc.sleep(300)
     if HELIX or ISENGARD or JARVIS:
         while (not monitor.abortRequested()):
-            if monitor.waitForAbort(0.5):
+            if monitor.waitForAbort(0.3):
                 break
             watchNavigation()           
                 
     notifyEventApp('quit')
 debugLog ('Service quits')
+
 
