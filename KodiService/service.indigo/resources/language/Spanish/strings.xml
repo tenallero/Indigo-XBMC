@@ -6,4 +6,5 @@
     <string id="10011">Puerto de XBMC Plugin:</string>   
 	<string id="10005">DEBUG: (Escribe información en Kodi.log):</string>
 	<string id="10008">Notification durante el inicio de Kodi:</string>
+    <string id="10010">Otros</string>
 </strings>
