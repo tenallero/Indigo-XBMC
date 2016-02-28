@@ -48,12 +48,15 @@ lastMedia   = ""
 lastMenu    = ""
 lastTitle   = ""
 lastVolume  = 0
+
 lastMuted   = False
 currMedia   = ""
 currTitle   = ""
 currVolume  = 0
 currMuted   = False
 lastWindow  = 0
+pulseMax    = 15
+pulseAlive  = 0
 
 MAJOR    = 0
 MINOR    = 0
@@ -191,7 +194,7 @@ def getCurrentMediaType():
                 lMedia = 'radio'
             else:
                 lMedia = 'audio' 
-        if lWindow == 10614:
+        if lWindow > 10613 and lWindow <= 10618:
             lMedia = 'livetv' 
         if lWindow >= 10694 and lWindow <= 10699:
             lMedia = 'livetv' 
@@ -259,6 +262,10 @@ def watchNavigation():
     checkEventTitle()
 
     currWindow = (xbmcgui.getCurrentWindowId())
+    if lastWindow == currWindow:
+        return
+    lastWindow = currWindow
+    debugLog ('Current Window ID = ' + str(currWindow))
                                                                                                  
     # menu Home
     if currWindow == 10000:
@@ -279,7 +286,7 @@ def watchNavigation():
         checkEventMenu ('settings')        
 
     # menu PVR
-    if (currWindow >= 10601) and (currWindow <= 10613):
+    if (currWindow >= 10601) and (currWindow <= 10626):
         checkEventMenu ('livetv')
    
     # menu Video
@@ -489,6 +496,10 @@ if sock != None:
         while (not monitor.abortRequested()):
             if monitor.waitForAbort(0.3):
                 break
+            pulseAlive = pulseAlive + 1
+            if pulseAlive > pulseMax:
+                notifyEventApp('alive')
+                pulseAlive = 0    
             watchNavigation()           
                 
     notifyEventApp('quit')
