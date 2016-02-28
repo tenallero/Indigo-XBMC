@@ -7,10 +7,15 @@
     <extension point="xbmc.addon.metadata">
         <platform>all</platform>
         <language>Eng</language>
-        <summary lang="en">Send events to Indigo's XBMC Plugin</summary>
+        <summary lang="en">Integrates this Kodi with Indigo Domotics</summary>
+        <summary lang="es">Integra este Kodi con Indigo Domotics</summary>
         <description lang="en">
-This plugin will integrate Kodi devices into Indigo Domotics system.
+This Add-on will integrate Kodi devices into Indigo Domotics system.
 Please, visit https://github.com/tenallero/Indigo-XBMC/wiki for documentation.
+        </description>
+        <description lang="es">
+Este Add-on integrará dispositivos Kodi con el sistema de Indigo Domotics.
+Visite https://github.com/tenallero/Indigo-XBMC/wiki para ver documentacion.
         </description>
     </extension>
 </addon>

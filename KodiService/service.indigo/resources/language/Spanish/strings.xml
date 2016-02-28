@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<strings>
+    <string id="10000">Configuración Indigo</string>
+    <string id="10001">LAN</string>
+    <string id="10002">Dirección IP Indigo:</string>
+    <string id="10011">Puerto de XBMC Plugin:</string>   
+	<string id="10005">DEBUG: (Escribe información en Kodi.log):</string>
+	<string id="10008">Notification durante el inicio de Kodi:</string>
+</strings>

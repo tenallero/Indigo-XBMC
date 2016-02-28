@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<strings>
+    <string id="10000">Indigo Settings</string>
+    <string id="10001">Network</string>
+    <string id="10002">Indigo IP address:</string>
+    <string id="10011">XBMC Plugin Port:</string>        	
+	<string id="10005">DEBUG: (Write info to Kodi.log):</string>
+	<string id="10008">Notification on Kodi startup:</string>
+</strings>
