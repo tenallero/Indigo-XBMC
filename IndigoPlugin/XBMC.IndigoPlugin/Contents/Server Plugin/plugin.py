@@ -186,7 +186,7 @@ class Plugin(indigo.PluginBase):
 
             self.sock=socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
             self.sock.bind(("0.0.0.0",self.listenPort))
-            self.sock.settimeout(3)
+            self.sock.settimeout(4)
             # Get socket IP Address
             self.socketOpen = True
             self.debugLog(u"Socket is open")
@@ -363,9 +363,9 @@ class Plugin(indigo.PluginBase):
             self.debugLog(device.name + ": Request content: %s" % rPayload)
             if useAuth == True:
                 rAuth = HTTPBasicAuth(rUserName, rPassword)
-                r = requests.post(url=rUrl, data=rPayload, headers=rHeaders, auth=rAuth, timeout=3)
+                r = requests.post(url=rUrl, data=rPayload, headers=rHeaders, auth=rAuth, timeout=4)
             else:
-                r = requests.post(url=rUrl, data=rPayload, headers=rHeaders, timeout=3)
+                r = requests.post(url=rUrl, data=rPayload, headers=rHeaders, timeout=4)
             rStatusCode = r.status_code
         except Exception, e:
             lastError = str(e)
@@ -385,10 +385,9 @@ class Plugin(indigo.PluginBase):
                 self.errorLog(device.name + ": Response status : %s" % rStatusCode)
         if requestOK == True:
             device.updateStateOnServer("onOffState", True)
-
         else:
-            if indigoDevice.states["onOffState"] == True:
-                self.debugLog (u'Switch off  "' + indigoDevice.name + '" not invalid reponse to request')
+            if device.states["onOffState"] == True:
+                self.debugLog (u'Switch off  "' + device.name + '" returned invalid reponse to request')
                 device.updateStateOnServer("onOffState", False)
         return requestOK, r
 
