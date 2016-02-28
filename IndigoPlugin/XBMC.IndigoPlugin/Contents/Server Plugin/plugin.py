@@ -292,7 +292,7 @@ class Plugin(indigo.PluginBase):
                         if indigoDevice.states["onOffState"] != True:
                             indigo.server.log(u"\"%s\" %s" % (indigoDevice.name, " is on"))
                             indigoDevice.updateStateOnServer("onOffState", True)
-                            self.xbmcApplicationVersion(indigoDevice)
+                            #self.xbmcApplicationVersion(indigoDevice)
                     else:
                         indigo.server.log(u"\"%s\" %s" % (indigoDevice.name, " is off"))
                         indigoDevice.updateStateOnServer("onOffState", False)
@@ -428,7 +428,6 @@ class Plugin(indigo.PluginBase):
             except Exception,e:
                 pass
             self.errorLog(device.name + ": Is Kodi/XBMC installed?")
-
         else:
             self.errorLog(device.name + ": This action only works if Kodi is running in the same machine than Indigo. Kodi address is: " + device.pluginProps["address"] + ". Indigo address is: " + self.localAddress)
 
