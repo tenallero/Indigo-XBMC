@@ -4,7 +4,7 @@
         <import addon="xbmc.python" version="2.1.0" />
         <import addon="xbmc.addon" version="12.0.0" />
     </requires>
-    <extension point="xbmc.service" library="addon.py" start="startup" />
+    <extension point="xbmc.service" library="service.py" start="startup" />
     <extension point="xbmc.addon.metadata">
         <platform>all</platform>
         <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
