@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="service.indigo" name="Indigo Kodi integration" version="0.1.0" provider-name="tenallero">
     <requires>
-        <import addon="xbmc.python" version="2.1.0"/>
-        <import addon="xbmc.gui" version="5.0.1"/>
-        <import addon="xbmc.addon" version="13.0.0"/>
-    </requires>  
-    <extension point="xbmc.service" library="addon.py" start="startup" />  
+        <import addon="xbmc.python" version="2.1.0" />
+        <import addon="xbmc.addon" version="12.0.0" />
+    </requires>
+    <extension point="xbmc.service" library="addon.py" start="startup" />
     <extension point="xbmc.addon.metadata">
         <platform>all</platform>
         <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
@@ -15,13 +14,13 @@
         <summary lang="en">Integrates Kodi with Indigo Domotics</summary>
         <summary lang="es">Integra Kodi con Indigo Domotics</summary>
         <description lang="en">
-This service will integrate Kodi devices into Indigo Domotics system.
+This service integrates Kodi devices into Indigo Domotics system.
 It sends events to Indigo about changing menu, player events, volume, etc.
 Please, visit https://github.com/tenallero/Indigo-XBMC/wiki for documentation.
         </description>
         <description lang="es">
-Este servicio integrará dispositivos Kodi con el sistema de Indigo Domotics.
-Envía eventos a Indigo cuando cuando se cambia de menu, player, volumen, etc.
+Este servicio integra dispositivos Kodi con el sistema de Indigo Domotics.
+Envia eventos a Indigo cuando se cambia de menu, player, volumen, etc.
 Visite https://github.com/tenallero/Indigo-XBMC/wiki para ver documentacion.
         </description>
     </extension>
