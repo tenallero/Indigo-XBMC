@@ -23,7 +23,7 @@ import xbmcgui
 import xbmcaddon
 import time
 import socket
-import json #simplejson
+import json
 import re
 
 settings          = xbmcaddon.Addon(id='service.indigo')

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <settings>
     
-       <setting label="10001" type="lsep"/> 
-       <setting label="10002" id="indigo_ip" type="ipaddress" default="0.0.0.0"/>
-       <setting label="10011" id="indigo_port" type="text" default="8189"/>   
+       <setting label="30001" type="lsep"/> 
+       <setting label="30002" id="indigo_ip" type="ipaddress" default="0.0.0.0"/>
+       <setting label="30003" id="indigo_port" type="text" default="8189"/>   
     
-       <setting label="10010" type="lsep"/> 
-	   <setting label="10005" id="debug_mod" type="labelenum" values="Yes|No" default="No"/>
-	   <setting label="10008" id="notification" type="labelenum" values="Yes|No" default="Yes"/>
+       <setting label="30006" type="lsep"/> 
+	   <setting label="30007" id="debug_mod" type="labelenum" values="Yes|No" default="No"/>
+	   <setting label="30008" id="notification" type="labelenum" values="Yes|No" default="Yes"/>
    
 </settings>
