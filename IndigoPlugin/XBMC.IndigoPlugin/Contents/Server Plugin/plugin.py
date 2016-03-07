@@ -609,3 +609,16 @@ class Plugin(indigo.PluginBase):
             self.xbmcApplicationStatusRequest (pluginAction,device)
         #   if not(self.sensorUpdate (device)):
         #       self.errorLog(u"\"%s\" %s" % (device.name, "status request failed"))
+        
+    ########################################
+    # Menu Methods
+    ########################################
+    def toggleDebugging(self):
+        if self.debug:
+            indigo.server.log("Turning off debug logging")
+            self.pluginPrefs["debugEnabled"] = False                
+        else:
+            indigo.server.log("Turning on debug logging")
+            self.pluginPrefs["debugEnabled"] = True
+        self.debug = not self.debug
+        return
