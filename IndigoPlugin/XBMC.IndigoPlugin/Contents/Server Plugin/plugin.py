@@ -13,12 +13,14 @@ import simplejson as json
 import requests
 from requests.auth import HTTPBasicAuth
 from xml.etree import ElementTree as ET
+from ghpu import GitHubPluginUpdater
 
 class Plugin(indigo.PluginBase):
 
     def __init__(self, pluginId, pluginDisplayName, pluginVersion, pluginPrefs):
         indigo.PluginBase.__init__(self, pluginId, pluginDisplayName, pluginVersion, pluginPrefs)
-
+        self.updater = GitHubPluginUpdater('tenallero', 'Indigo-XBMC', self)
+        
         # Port
         self.listenPortDef = 8189
         self.listenPort    = 0
@@ -75,6 +77,7 @@ class Plugin(indigo.PluginBase):
         s.close()
 
         self.debugLog("Local IP address: " + self.localAddress)
+        self.updater.checkForUpdate()
 
     def shutdown(self):
         self.debugLog(u"shutdown called")
@@ -622,3 +625,18 @@ class Plugin(indigo.PluginBase):
             self.pluginPrefs["debugEnabled"] = True
         self.debug = not self.debug
         return
+        
+    def menuDeviceDiscovery(self):
+        if self.discoveryWorking:
+            return
+        self.deviceDiscover()
+        return
+        
+    def checkForUpdates(self):
+        update = self.updater.checkForUpdate() 
+        if (update != None):
+            pass
+        return    
+
+    def updatePlugin(self):
+        self.updater.update()
