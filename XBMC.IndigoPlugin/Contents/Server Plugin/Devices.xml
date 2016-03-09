@@ -3,7 +3,7 @@
     <Device type="relay" id="xbmctype">
         <Name>Kodi Device</Name>
         <ConfigUI>
-
+            <SupportURL>https://github.com/tenallero/Indigo-XBMC/wiki/Device-configuration</SupportURL>
             <Field id="label2" type="label">
                 <Label>Connection from Indigo to Kodi</Label>
             </Field>

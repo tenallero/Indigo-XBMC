@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <PluginConfig>
-
+    <SupportURL>https://github.com/tenallero/Indigo-XBMC/wiki/Indigo-Configuration</SupportURL>	
     <Field id="label2" type="label">
         <Label>Connecting Kodi to Indigo</Label>
     </Field>
