@@ -62,7 +62,7 @@ class Plugin(indigo.PluginBase):
                 propsAddress = propsAddress.replace (' ','')
                 self.deviceList[device.id] = {'ref':device,'address':propsAddress, 'lastTimeAlive':datetime.datetime.now()}
 
-   def deleteDeviceFromList(self, device):
+    def deleteDeviceFromList(self, device):
         if device:
             if device.id in self.deviceList:
                 del self.deviceList[device.id]
