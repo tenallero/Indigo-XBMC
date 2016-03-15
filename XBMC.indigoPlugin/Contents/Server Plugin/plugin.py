@@ -50,13 +50,17 @@ class Plugin(indigo.PluginBase):
 
     def deviceStartComm(self, device):
         self.debugLog(device.name + ": Starting device")
-        propsAddress = ''
-
-        if device.id not in self.deviceList:
+        device.stateListOrDisplayStateIdChanged()
+        self.addDeviceToList (device)
+  
+    def addDeviceToList(self,device):        
+        if device.id not in self.deviceList: 
+            propsAddress = ''   
             propsAddress = device.pluginProps["address"]
             propsAddress = propsAddress.strip()
             propsAddress = propsAddress.replace (' ','')
             self.deviceList[device.id] = {'ref':device,'address':propsAddress, 'lastTimeAlive':datetime.datetime.now()}
+
 
     def deviceStopComm(self,device):
         if device.id not in self.deviceList:
@@ -137,6 +141,8 @@ class Plugin(indigo.PluginBase):
     def closedDeviceConfigUi(self, valuesDict, userCancelled, typeId, devId):
         if userCancelled is False:
             indigo.server.log ("Device preferences were updated.")
+            del self.deviceList[devId]
+            self.addDeviceToList (device)
 
     def closedPrefsConfigUi ( self, valuesDict, UserCancelled):
         #   If the user saves the preferences, reload the preferences
