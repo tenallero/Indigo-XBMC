@@ -53,20 +53,24 @@ class Plugin(indigo.PluginBase):
         device.stateListOrDisplayStateIdChanged()
         self.addDeviceToList (device)
   
-    def addDeviceToList(self,device):        
-        if device.id not in self.deviceList: 
-            propsAddress = ''   
-            propsAddress = device.pluginProps["address"]
-            propsAddress = propsAddress.strip()
-            propsAddress = propsAddress.replace (' ','')
-            self.deviceList[device.id] = {'ref':device,'address':propsAddress, 'lastTimeAlive':datetime.datetime.now()}
+    def addDeviceToList(self,device):
+        if device:       
+            if device.id not in self.deviceList: 
+                propsAddress = ''   
+                propsAddress = device.pluginProps["address"]
+                propsAddress = propsAddress.strip()
+                propsAddress = propsAddress.replace (' ','')
+                self.deviceList[device.id] = {'ref':device,'address':propsAddress, 'lastTimeAlive':datetime.datetime.now()}
 
+   def deleteDeviceFromList(self, device):
+        if device:
+            if device.id in self.deviceList:
+                del self.deviceList[device.id]
 
     def deviceStopComm(self,device):
-        if device.id not in self.deviceList:
-            return
-        self.debugLog(device.name + ": Stoping device")
-        del self.deviceList[device.id]
+        if device.id in self.deviceList:           
+            self.debugLog(device.name + ": Stoping device")
+            self.deleteDeviceFromList(device)
 
     def startup(self):
         self.loadPluginPrefs()
@@ -141,7 +145,8 @@ class Plugin(indigo.PluginBase):
     def closedDeviceConfigUi(self, valuesDict, userCancelled, typeId, devId):
         if userCancelled is False:
             indigo.server.log ("Device preferences were updated.")
-            del self.deviceList[devId]
+            device = indigo.devices[devId]
+            self.deleteDeviceFromList (device)
             self.addDeviceToList (device)
 
     def closedPrefsConfigUi ( self, valuesDict, UserCancelled):
