@@ -19,7 +19,7 @@ class Plugin(indigo.PluginBase):
 
     def __init__(self, pluginId, pluginDisplayName, pluginVersion, pluginPrefs):
         indigo.PluginBase.__init__(self, pluginId, pluginDisplayName, pluginVersion, pluginPrefs)
-        self.updater = GitHubPluginUpdater('tenallero', 'Indigo-XBMC', self)
+        self.updater = GitHubPluginUpdater(self) #'tenallero', 'Indigo-XBMC', self)
         
         # Port
         self.listenPortDef = 8189
