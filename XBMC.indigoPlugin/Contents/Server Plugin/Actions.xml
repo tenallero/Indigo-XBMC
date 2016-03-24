@@ -70,4 +70,15 @@
 		</ConfigUI>
 	</Action>
 	
+    <Action id="xbmcExecuteAddon" deviceFilter="self">
+		<Name>Send notification</Name>
+		<CallbackMethod>xbmcExecuteAddon</CallbackMethod>
+		<ConfigUI>
+			<Field id="addonid" type="textfield" defaultValue="">
+				<Label>AddOn Id:</Label>
+				<Description>AddOn ID defined in addon.xml. Example: script.module.securitycam</Description>
+			</Field>					
+		</ConfigUI>
+	</Action>
+    
 </Actions>

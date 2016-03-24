@@ -550,8 +550,13 @@ class Plugin(indigo.PluginBase):
             self.sendRpcRequest  (device, "GUI.ShowNotification", {"title": title, "message": message, "displaytime": msTime })
         else:
             self.sendRpcRequest  (device, "GUI.ShowNotification", {"title": title, "message": message })
-        pass                
-                    
+        pass
+                        
+    def xbmcExecuteAddon(self, pluginAction, device): 
+        addonid = self.substitute(pluginAction.props.get("addonid", ""))    
+        if addonid:   
+            self.sendRpcRequest  (device, "Addons.ExecuteAddon", {"addonid": addonid})      
+              
     def xbmcGetPlayerID(self, device):
         #self.sendRpcRequest  (device, "Player.GetActivePlayers", {} )
         return 1
